@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Animate Css -->
+    <link rel="stylesheet" href="{{ asset('css/template/plugin/animate.css') }}">
+    <!-- Style Css -->
+    <link rel="stylesheet" href="{{ asset('css/template/style.css') }}">
+
     <title>@yield('title')</title>
 </head>
 <body class="container mt-5">

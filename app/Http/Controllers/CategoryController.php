@@ -8,6 +8,9 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
@@ -21,45 +24,47 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return JsonResponse|View
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse|View
     {
-        $result = ['status' => 200];
+        if ($request->hasHeader('X-Requested-With') && ('Axios' === $request->header('X-Requested-With'))) {
+            $result = ['status' => 200];
 
-        try {
-            $result['data'] = $this->categoryService->all();
-        } catch (Exception $e) {
-            $result = ['status' => 500, 'error' => $e->getMessage()];
+            try {
+                $result['data'] = $this->categoryService->all();
+            } catch (Exception $e) {
+                $result = ['status' => 500, 'error' => $e->getMessage()];
+            }
+
+            return response()->json($result);
+        } else {
+            return view('welcome');
         }
-
-        return response()->json($result);
-    }
-
-    public function test()
-    {
-        $this->categoryService->foo('sth');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        if (!Auth::check() || Auth::user()->cannot('create')) {
+            abort(403);
+        }
+        return view('welcome');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreCategoryRequest  $request
+     * @return
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        return response()->json($this->categoryService->store($request));
     }
 
     /**

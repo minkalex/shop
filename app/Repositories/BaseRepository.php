@@ -24,10 +24,10 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param  array  $attributes
+     * @param  $attributes
      * @return Model
      */
-    public function create(array $attributes): Model
+    public function create($attributes): Model
     {
         return $this->model->create($attributes);
     }

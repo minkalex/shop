@@ -2,19 +2,42 @@
 
 namespace App\Services;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Interfaces\CategoryRepositoryInterface;
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoryService
 {
+    /**
+     * @var CategoryRepositoryInterface
+     */
     private CategoryRepositoryInterface $categoryRepository;
 
+    /**
+     * @param  CategoryRepositoryInterface  $categoryRepository
+     */
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function all()
+    /**
+     * @return Collection
+     */
+    public function all(): Collection
     {
         return $this->categoryRepository->all();
     }
+
+    /**
+     * @param  StoreCategoryRequest  $request
+     * @return Category
+     */
+    public function store(StoreCategoryRequest $request): Category
+    {
+        return $this->categoryRepository->create($request);
+    }
+
 }
