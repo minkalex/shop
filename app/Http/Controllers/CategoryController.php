@@ -8,8 +8,10 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -60,9 +62,9 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreCategoryRequest  $request
-     * @return
+     * @return JsonResponse
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
         return response()->json($this->categoryService->store($request));
     }
@@ -70,41 +72,48 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Category  $category
+     * @return View|JsonResponse
      */
-    public function show(Category $category)
+    public function show(Request $request, Category $category): View|JsonResponse
     {
-        //
+        if ($request->hasHeader('X-Requested-With') && ('Axios' === $request->header('X-Requested-With'))) {
+            return response()->json($category);
+        } else {
+            return view('welcome');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function edit(Category $category)
+    public function edit(): View
     {
-        //
+        if (!Auth::check() || Auth::user()->cannot('edit')) {
+            abort(403);
+        }
+        return view('welcome');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param  UpdateCategoryRequest  $request
+     * @param  Category  $category
+     * @return bool
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): bool
     {
-        //
+        return $this->categoryService->update($category, $request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)

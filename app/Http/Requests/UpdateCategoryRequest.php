@@ -13,7 +13,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:255',
+        ];
+    }
+
+    /**
+     * Custom message for validation
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'Поле обязательно для заполнения.',
+            'max' => "Максимальная длина поля :max символов.",
         ];
     }
 }

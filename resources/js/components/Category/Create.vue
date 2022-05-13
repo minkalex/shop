@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8 col-md-9 wow fadeInUp animated">
                     <div class="login-register-form"
-                         style="background-image: url('assets/images/inner-pages/login-bg.png');">
+                         style="background-image: url('storage/images/categories/login-bg.png');">
                         <div class="top-title text-center ">
                             <h2>new category</h2>
                         </div>

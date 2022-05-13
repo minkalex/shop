@@ -33,24 +33,15 @@
                                 class="flaticon-cross"> </i></button>
                             <div class="sidebar-holder">
                                 <div class="single-sidebar-box mt-30 wow fadeInUp animated ">
-                                    <h4>Select Categories</h4>
-                                    <div class="checkbox-item">
-                                        <form>
-                                            <div
-                                                class="form-group"
-                                                v-for="leftCategory in allCategories"
-                                                :key="leftCategory.id"
-                                            >
-                                                <input type="checkbox" :id="'cat_' + leftCategory.id">
-                                                <label :for="'cat_' + leftCategory.id">{{ leftCategory.title }}</label>
-                                            </div>
-                                            <div class="single-sidebar-box">
-                                                <div class="slider-box mt-3">
-                                                    <button class="filterbtn" type="submit"> Filter</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <h4>all categories</h4>
+                                    <ul
+                                        class="footer-links"
+                                        style="padding-top: unset"
+                                        v-for="category in allCategories"
+                                        :key="category.id"
+                                    >
+                                        <li><a :href="'/categories/' + category.id">{{ category.title }}</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

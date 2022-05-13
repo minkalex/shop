@@ -15,9 +15,9 @@ interface BaseRepositoryInterface
 
     /**
      * @param $id
-     * @return Model|null
+     * @return Collection|null
      */
-    public function find($id): ?Model;
+    public function find($id): ?Collection;
 
     /**
      * @return Collection
@@ -25,11 +25,11 @@ interface BaseRepositoryInterface
     public function all(): Collection;
 
     /**
-     * @param $id
-     * @param  array  $attributes
+     * @param  Model  $model
+     * @param  array $attributes
      * @return bool
      */
-    public function update($id, array $attributes): bool;
+    public function update(Model $model, array $attributes): bool;
 
     /**
      * @param $id

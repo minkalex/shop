@@ -40,4 +40,13 @@ class CategoryService
         return $this->categoryRepository->create($request);
     }
 
+    /**
+     * @param  Category  $category
+     * @param array $attributes
+     * @return bool
+     */
+    public function update(Category $category, array $attributes): bool
+    {
+        return $this->categoryRepository->update($category, $attributes);
+    }
 }

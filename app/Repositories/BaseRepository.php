@@ -16,7 +16,7 @@ class BaseRepository implements BaseRepositoryInterface
     /**
      * BaseRepository constructor.
      *
-     * @param Model $model
+     * @param  Model  $model
      */
     public function __construct(Model $model)
     {
@@ -34,9 +34,9 @@ class BaseRepository implements BaseRepositoryInterface
 
     /**
      * @param $id
-     * @return Model|null
+     * @return Collection|null
      */
-    public function find($id): ?Model
+    public function find($id): ?Collection
     {
         return $this->model->find($id);
     }
@@ -50,13 +50,13 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param $id
+     * @param  Model  $model
      * @param  array  $attributes
      * @return bool
      */
-    public function update($id, array $attributes): bool
+    public function update(Model $model, array $attributes): bool
     {
-        return $this->model->find($id)->update($attributes);
+        return $model->update($attributes);
     }
 
     /**
