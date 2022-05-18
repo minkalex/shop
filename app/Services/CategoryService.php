@@ -42,11 +42,11 @@ class CategoryService
 
     /**
      * @param  Category  $category
-     * @param array $attributes
+     * @param $attributes
      * @return bool
      */
-    public function update(Category $category, array $attributes): bool
+    public function update($attributes, Category $category): bool
     {
-        return $this->categoryRepository->update($category, $attributes);
+        return $this->categoryRepository->update($attributes, $category);
     }
 }

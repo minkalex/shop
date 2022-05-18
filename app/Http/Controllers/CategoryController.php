@@ -103,11 +103,11 @@ class CategoryController extends Controller
      *
      * @param  UpdateCategoryRequest  $request
      * @param  Category  $category
-     * @return bool
+     * @return
      */
-    public function update(UpdateCategoryRequest $request, Category $category): bool
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        return $this->categoryService->update($category, $request->validated());
+        return $this->categoryService->update($request, $category);
     }
 
     /**

@@ -37,6 +37,7 @@ Normalize Css
   --thm-dada: #dadada;
   --thm-white: #ffffff;
   --thm-light: #f7f7f7;
+    --bs-body-bg: #ffffff;
 }
 
 * {

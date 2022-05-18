@@ -4,11 +4,11 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8 col-md-9 wow fadeInUp animated">
                     <div class="login-register-form"
-                         style="background-image: url('/storage/images/categories/login-bg.png');">
+                         style="background-image: url('/storage/images/categories/form.png');">
                         <div class="top-title text-center ">
                             <h2>edit category</h2>
                         </div>
-                        <form class="common-form" method="post" enctype="multipart/form-data" @submit.prevent="update">
+                        <form class="common-form" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input
                                     type="text"
@@ -25,7 +25,7 @@
                                         data-wow-delay="0.1s"
                                     >
                                         <div class="thumb">
-                                            <img :src="'../storage/' + image" alt="category_image">
+                                            <img :src="'/storage/' + image" alt="category_image">
                                         </div>
                                         <div>
                                             <input
@@ -48,7 +48,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn--primary style2">save</button>
+                            <button type="button" class="btn--primary style2" @click="update">save</button>
                         </form>
                     </div>
                 </div>
@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import router from "../../router";
-
 export default {
     data() {
         return {
@@ -78,7 +76,7 @@ export default {
             this.image = event.target.files
         },
         getCategory() {
-            axios.get('/categories/' + this.$route.params.id)
+            axios.get(`/categories/${this.$route.params.id}`)
                 .then(res => {
                     this.title = res.data.title
                     this.image = res.data.image
@@ -86,14 +84,23 @@ export default {
                 })
         },
         update() {
-            axios.patch('/categories/' + this.$route.params.id, {
-                title: this.title,
-                image: this.image,
-                active: +this.active
+            let formData = new FormData();
+            if (null !== this.image && this.image.length > 0) {
+                formData.append('image', this.image[0]);
+            }
+            formData.append('title', this.title);
+            formData.append('active', +this.active);
+            formData.append('_method', 'patch');
+            axios.post(
+                `/categories${this.$route.params.id}`,
+                formData,
+                {headers: {'Content-Type': 'multipart/form-data'}}
+            ).then(res => {
+                this.$router.push({name: 'categories.show', params: {id: this.$route.params.id}})
             })
-                .then(res => {
-                    router.push({name: 'categories.show', params: {id: this.$route.params.id}})
-                })
+            .catch(e => {
+                console.log(e)
+            })
         }
     }
 }

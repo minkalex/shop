@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 interface BaseRepositoryInterface
 {
     /**
-     * @param array $attributes
+     * @param $attributes
      * @return Model
      */
-    public function create(array $attributes): Model;
+    public function create($attributes): Model;
 
     /**
      * @param $id
@@ -26,10 +26,10 @@ interface BaseRepositoryInterface
 
     /**
      * @param  Model  $model
-     * @param  array $attributes
+     * @param  $attributes
      * @return bool
      */
-    public function update(Model $model, array $attributes): bool;
+    public function update($attributes, Model $model): bool;
 
     /**
      * @param $id

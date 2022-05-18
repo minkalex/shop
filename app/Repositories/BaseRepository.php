@@ -51,10 +51,10 @@ class BaseRepository implements BaseRepositoryInterface
 
     /**
      * @param  Model  $model
-     * @param  array  $attributes
+     * @param  $attributes
      * @return bool
      */
-    public function update(Model $model, array $attributes): bool
+    public function update($attributes, Model $model): bool
     {
         return $model->update($attributes);
     }

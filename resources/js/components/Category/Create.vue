@@ -4,7 +4,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8 col-md-9 wow fadeInUp animated">
                     <div class="login-register-form"
-                         style="background-image: url('storage/images/categories/login-bg.png');">
+                         style="background-image: url('../storage/images/categories/form.png');">
                         <div class="top-title text-center ">
                             <h2>new category</h2>
                         </div>
@@ -16,6 +16,7 @@
                                     placeholder="enter category title"
                                     name="title"
                                     v-model="title"
+                                    required
                                 >
                             </div>
                             <div>
@@ -36,7 +37,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn--primary style2">add</button>
+                            <button type="submit" :hidden="!isHidden" class="btn--primary style2">add</button>
                         </form>
                     </div>
                 </div>
@@ -46,9 +47,8 @@
 </template>
 
 <script>
-import router from "../../router";
-
 export default {
+
     data() {
         return {
             title: null,
@@ -61,6 +61,7 @@ export default {
         getFile(event) {
             this.image = event.target.files
         },
+
         store() {
             let formData = new FormData();
             if (this.image.length > 0) {
@@ -73,8 +74,14 @@ export default {
                 formData,
                 {headers: {'Content-Type': 'multipart/form-data'}}
             ).then(res => {
-                router.push({ name: 'categories.index' })
+                this.$router.push({ name: 'categories.index' })
             })
+        }
+    },
+
+    computed: {
+        isHidden() {
+            return this.title
         }
     }
 }
