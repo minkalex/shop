@@ -15,6 +15,11 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request): View
     {
-        return view('welcome');
+        if ($request->is('admin*')) {
+            return view('admin');
+        } else {
+            return view('public');
+        }
+
     }
 }

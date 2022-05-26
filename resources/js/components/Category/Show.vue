@@ -329,12 +329,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
     mounted() {
-        this.$store.dispatch('getCategory', this.$route.params.id)
+        this.getCategory(this.$route.params.id)
     },
 
     methods: {
+        ...mapActions([
+            'getCategory'
+        ]),
+
         goToCreate() {
             this.$router.push({name: 'categories.create'})
         },
@@ -349,9 +355,9 @@ export default {
     },
 
     computed: {
-        category() {
-            return this.$store.getters.category
-        }
+        ...mapGetters([
+            'category'
+        ])
     }
 }
 </script>

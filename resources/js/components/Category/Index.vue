@@ -37,7 +37,7 @@
                                     <ul
                                         class="footer-links"
                                         style="padding-top: unset"
-                                        v-for="category in allCategories"
+                                        v-for="category in categories"
                                         :key="category.id"
                                     >
                                         <li><a :href="'/categories/' + category.id">{{ category.title }}</a></li>
@@ -56,14 +56,16 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
     data() {
         return {
             topCategories: [],
-            allCategories: []
+            //categories: []
         }
     },
-    created() {
+    /*created() {
         let self = this
         axios.get('/categories')
             .then(res => {
@@ -76,6 +78,22 @@ export default {
                     }
                 })
             })
+    },*/
+
+    mounted() {
+        this.getCategories()
+    },
+
+    methods: {
+        ...mapActions([
+            'getCategories'
+        ])
+    },
+
+    computed: {
+        ...mapGetters([
+            'categories'
+        ])
     }
 }
 </script>

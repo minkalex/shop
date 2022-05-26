@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ItemController;
@@ -19,14 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/admin', AdminController::class)->name('home');
 
 Route::resource('categories', CategoryController::class);
 Route::resource('items', ItemController::class);
 Route::resource('orders', OrderController::class);
 Route::resource('products', ProductController::class);
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class);*/
 
 Route::get('/{dummy}', IndexController::class)->where('dummy', '.*');

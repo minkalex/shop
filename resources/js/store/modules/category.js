@@ -1,21 +1,33 @@
 const state = {
-    category: null
+    category: null,
+    categories: null,
 }
 
 const getters = {
-    category: state => state.category
+    category: () => state.category,
+    categories: () => state.categories,
 }
 
 const actions = {
-    getCategory(commit, id) {
-        console.log('sad')
-        axios.get(`/categories/${id}`)
+    getCategory({commit}, id) {
+        axios.get(`/api/categories/${id}`)
             .then(res => {
-                console.log('sasdfsdfdsfd')
                 commit('setCategory', res.data)
             })
-            .catch(error => {
-                console.log(error)
+    },
+    getCategories({commit}) {
+        axios.get('/api/categories')
+            .then(res => {
+                console.log(res)
+                commit('setCategories', res.data)
+                    /*res.data.data.forEach(function (objCategory) {
+                    if (objCategory.active) {
+                        self.allCategories.push(objCategory)
+                        if (self.topCategories.length < 6) {
+                            self.topCategories.push(objCategory)
+                        }
+                    }
+                })*/
             })
     }
 }
@@ -23,6 +35,9 @@ const actions = {
 const mutations = {
     setCategory(state, category) {
         state.category = category
+    },
+    setCategories(state, categories) {
+        state.categories = categories
     }
 }
 

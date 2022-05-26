@@ -31,15 +31,15 @@ class CategoryController extends Controller
     public function index(Request $request): JsonResponse|View
     {
         if ($request->hasHeader('X-Requested-With') && ('Axios' === $request->header('X-Requested-With'))) {
-            $result = ['status' => 200];
+            /*$result = ['status' => 200];
 
             try {
                 $result['data'] = $this->categoryService->all();
             } catch (Exception $e) {
                 $result = ['status' => 500, 'error' => $e->getMessage()];
-            }
+            }*/
 
-            return response()->json($result);
+            return response()->json($this->categoryService->all());
         } else {
             return view('welcome');
         }
