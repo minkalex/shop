@@ -60,11 +60,11 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param $id
+     * @param Model  $model
      * @return bool|null
      */
-    public function delete($id): bool|null
+    public function delete(Model $model): ?bool
     {
-        return $this->model->find($id)->delete();
+        return $model->delete();
     }
 }

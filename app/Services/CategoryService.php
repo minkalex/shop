@@ -49,4 +49,13 @@ class CategoryService
     {
         return $this->categoryRepository->update($attributes, $category);
     }
+
+    /**
+     * @param  Category  $category
+     * @return null|bool
+     */
+    public function delete(Category $category): ?bool
+    {
+        return $this->categoryRepository->delete($category);
+    }
 }

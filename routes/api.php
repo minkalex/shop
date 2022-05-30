@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('categories', CategoryController::class);
+Route::name('admin.')->group(function () {
+    Route::resource('categories', CategoryController::class);
+});

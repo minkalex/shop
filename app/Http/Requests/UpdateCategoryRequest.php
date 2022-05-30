@@ -25,6 +25,9 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
+            'top' => 'boolean',
+            'active' => 'boolean',
+            'image' => 'file',
         ];
     }
 

@@ -21,7 +21,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function create($attributes): Category
     {
-        $arParams = [];
+        /*$arParams = [];
         if (!empty($attributes->file())) {
             //dd($attributes->file('file'));
             $arParams['image'] = $attributes->file('image')->store('images/categories');
@@ -29,7 +29,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
         $arParams['title'] = $attributes->title;
         $arParams['active'] = $attributes->active;
-        return Category::create($arParams);
+        return Category::create($arParams);*/
+        $arParams['title'] = $attributes->title;
+        $arParams['active'] = $attributes->active;
+        $category = Category::create($arParams);
+        if($attributes->hasFile('image') && $attributes->file('image')->isValid()){
+            $category->addMediaFromRequest('image')->toMediaCollection('images');
+        }
     }
 
     public function update($attributes, $model): bool
@@ -39,6 +45,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
         $model->title = $attributes->title;
         $model->active = $attributes->active;
+        $model->top = $attributes->top;
         return $model->save();
     }
 

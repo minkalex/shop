@@ -196,6 +196,11 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
 
+        /*
+         * Third Party Service Providers...
+         */
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+
     ],
 
     /*

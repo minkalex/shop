@@ -37,9 +37,9 @@
                 <div class="icon">
                     <i class="fas fa-list-ul"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <router-link :to="{ name: 'admin.categories.index' }" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                </router-link>
             </div>
         </div>
         <div class="col-md-3">

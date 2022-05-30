@@ -103,9 +103,9 @@ class CategoryController extends Controller
      *
      * @param  UpdateCategoryRequest  $request
      * @param  Category  $category
-     * @return
+     * @return bool
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): bool
     {
         return $this->categoryService->update($request, $category);
     }
@@ -114,10 +114,10 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Category  $category
-     * @return \Illuminate\Http\Response
+     * @return null|bool
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): ?bool
     {
-        //
+        return $this->categoryService->delete($category);
     }
 }

@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Kyslik\ColumnSortable\Sortable;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +26,16 @@ class Order extends Model
         'payment_type',
         'status',
         'comment',
+    ];
+
+    public $sortable = [
+        'id',
+        'amount',
+        'discount',
+        'discount_type',
+        'payment_type',
+        'status',
+        'created_at',
     ];
 
     /**

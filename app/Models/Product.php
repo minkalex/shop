@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Kyslik\ColumnSortable\Sortable;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,15 @@ class Product extends Model
         'active',
         'description',
         'image',
+    ];
+
+    public $sortable = [
+        'id',
+        'title',
+        'rest',
+        'price',
+        'active',
+        'created_at',
     ];
 
     /**

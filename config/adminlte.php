@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>LABEL</b>',
+    'logo' => '<b>LOGO</b>',
     'logo_img' => null,
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -226,7 +226,7 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
+        /*[
             'type'         => 'navbar-search',
             'text'         => 'search',
             'topnav_right' => true,
@@ -234,6 +234,23 @@ return [
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
+        ],*/
+        [
+            'type'         => 'darkmode-widget',
+            'topnav_right' => true, // Or "topnav => true" to place on the left.
+        ],
+        [
+            'type'         => 'navbar-notification',
+            'id'           => 'my-notification',
+            'icon'         => 'fas fa-bell',
+            'url'          => 'notifications/show',
+            'topnav_right' => true,
+            'dropdown_mode'   => true,
+            'dropdown_flabel' => 'All notifications',
+            'update_cfg'   => [
+                'url' => 'notifications/get',
+                'period' => 30,
+            ],
         ],
 
         // Sidebar items:
@@ -266,7 +283,7 @@ return [
         ],
         [
             'text' => 'Categories',
-            'url'  => 'admin/categories',
+            'url' => 'admin/categories',
             'icon' => 'fas fa-fw fa-list-ul',
         ],
         [
