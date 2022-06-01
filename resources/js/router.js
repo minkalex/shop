@@ -10,25 +10,7 @@ export default new VueRouter({
         {path: '/categories/:id', component: () => import('./components/Category/Show'), name: 'categories.show'},
 
         {path: '/admin', component: () => import('./components/Admin/Index'), name: 'admin.index'},
-        {
-            path: '/admin/categories',
-            component: () => import('./components/Admin/Category/Index'),
-            name: 'admin.categories.index'
-        },
-        {
-            path: '/admin/categories/create',
-            component: () => import('./components/Admin/Category/Create'),
-            name: 'admin.categories.create'
-        },
-        {
-            path: '/admin/categories/:id/edit',
-            component: () => import('./components/Admin/Category/Edit'),
-            name: 'admin.categories.edit'
-        },
-        {
-            path: '/admin/categories/:id',
-            component: () => import('./components/Admin/Category/Show'),
-            name: 'admin.categories.show'
-        },
+        {path: '/admin/categories', component: () => import('./components/Admin/Category'), name: 'admin.categories'},
+        {path: '/admin/products', component: () => import('./components/Admin/Product'), name: 'admin.products'},
     ]
 })

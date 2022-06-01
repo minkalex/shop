@@ -23,7 +23,6 @@ class Category extends Model implements HasMedia
      */
     protected $fillable = [
         'title',
-        'image',
         'active',
     ];
 
@@ -44,14 +43,11 @@ class Category extends Model implements HasMedia
         return $this->hasMany(Product::class)->orderBy('title');
     }
 
-    /**
-     * @throws InvalidManipulation
-     */
     public function registerMediaConversions(Media $media = null): void
     {
         $this
-            ->addMediaConversion('preview')
-            ->fit(Manipulations::FIT_CROP, 95, 85)
-            ->nonQueued();
+            ->addMediaConversion('categoryThumb')
+            ->width(95)
+            ->height(85);
     }
 }

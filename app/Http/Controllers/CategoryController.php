@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Spatie\Image\Exceptions\InvalidManipulation;
+use Spatie\Image\Manipulations;
 
 class CategoryController extends Controller
 {
@@ -103,9 +105,10 @@ class CategoryController extends Controller
      *
      * @param  UpdateCategoryRequest  $request
      * @param  Category  $category
-     * @return bool
+     * @return
+     * @throws InvalidManipulation
      */
-    public function update(UpdateCategoryRequest $request, Category $category): bool
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         return $this->categoryService->update($request, $category);
     }

@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kyslik\ColumnSortable\Sortable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasFactory, Sortable;
+    use HasFactory, Sortable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,6 @@ class Product extends Model
         'category_id',
         'active',
         'description',
-        'image',
     ];
 
     public $sortable = [

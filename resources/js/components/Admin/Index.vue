@@ -23,9 +23,9 @@
                 <div class="icon">
                     <i class="fas fa-barcode"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <router-link :to="{ name: 'admin.products' }" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
+                </router-link>
             </div>
         </div>
         <div class="col-md-3">
@@ -37,7 +37,7 @@
                 <div class="icon">
                     <i class="fas fa-list-ul"></i>
                 </div>
-                <router-link :to="{ name: 'admin.categories.index' }" class="small-box-footer">
+                <router-link :to="{ name: 'admin.categories' }" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </router-link>
             </div>

@@ -19,16 +19,7 @@ const actions = {
     getCategories({commit}) {
         axios.get('/api/categories')
             .then(res => {
-                console.log(res)
                 commit('setCategories', res.data)
-                /*res.data.data.forEach(function (objCategory) {
-                if (objCategory.active) {
-                    self.allCategories.push(objCategory)
-                    if (self.topCategories.length < 6) {
-                        self.topCategories.push(objCategory)
-                    }
-                }
-            })*/
             })
     },
 
@@ -42,8 +33,7 @@ const actions = {
         }
     },
 
-    updateCategory({dispatch}, data) {
-        console.log(data)
+    createOrUpdateCategory({dispatch}, data) {
         let formData = new FormData();
         if (null !== data.image) {
             formData.append('image', data.image[0]);
@@ -51,10 +41,13 @@ const actions = {
         formData.append('title', data.title);
         formData.append('top', +data.top);
         formData.append('active', +data.active);
-        formData.append('_method', 'patch');
-
-        axios.post(`/api/categories/${data.id}`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
-            .then(() => {
+        let url = `/api/categories`
+        if (typeof data['id'] !== "undefined") {
+            formData.append('_method', 'patch');
+            url += `/${data.id}`
+        }
+        axios.post(url, formData, {headers: {'Content-Type': 'multipart/form-data'}})
+            .then(res => {
                 dispatch('getCategories')
             })
     }
