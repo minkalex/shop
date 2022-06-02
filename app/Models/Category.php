@@ -48,6 +48,7 @@ class Category extends Model implements HasMedia
         $this
             ->addMediaConversion('categoryThumb')
             ->width(95)
-            ->height(85);
+            ->height(85)
+            ->format(Manipulations::FORMAT_PNG);;
     }
 }

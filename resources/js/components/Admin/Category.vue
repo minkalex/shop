@@ -133,7 +133,7 @@
                 <td class="align-middle">
                     <!--:src="'../storage/' + category.image"-->
                     <img
-                        :src="category.media[0].generated_conversions.catalogThumb !== undefined ? category.thumb : '../storage/' + category.image"
+                        :src="getImageUrl(category)"
                         :alt="category.title"
                         class="category-image"
                     >
@@ -202,9 +202,9 @@
                                     <div class="modal-body">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
-                                        <span class="input-group-text" :id="'category-title-' + category.id">
-                                            Title
-                                        </span>
+                                                <span class="input-group-text" :id="'category-title-' + category.id">
+                                                    Title
+                                                </span>
                                             </div>
                                             <input
                                                 type="text"
@@ -220,7 +220,7 @@
                                                 <div class="col-auto">
                                                     <!--:src="'../storage/' + category.image"-->
                                                     <img
-                                                        :src="category.media[0].generated_conversions.catalogThumb !== undefined ? category.thumb : '../storage/' + category.image"
+                                                        :src="getImageUrl(category)"
                                                         :alt="category.title"
                                                         class="category-image"
                                                         :ref="'category-image-preview-' + category.id"
@@ -328,16 +328,27 @@ export default {
             this.title = (null === categoryIndex) ? null : this.categories[categoryIndex].title
             this.top = (null === categoryIndex) ? null : !!this.categories[categoryIndex].top
             this.active = (null === categoryIndex) ? true : !!this.categories[categoryIndex].active
-            console.log(this.categories[categoryIndex].media[0].generated_conversions.catalogThumb !== undefined ? this.categories[categoryIndex].thumb : 'asdsadsa')
+            console.log(this.categories)
         },
 
         getFile(event) {
             this.image = event.target.files
-            if (undefined !== this.$refs["category-image-preview-" + event.target.attributes[5].value]) {
-                this.$refs["category-image-preview-" + event.target.attributes[5].value][0].attributes[1].value = ''
-                this.$refs["category-image-preview-" + event.target.attributes[5].value][0].attributes[2].value = 'display after saving'
+            var categoryId = event.target.attributes[5].value
+            if (undefined !== categoryId) {
+                this.$refs["category-image-preview-" + categoryId][0].attributes[1].value = ''
+                this.$refs["category-image-preview-" + categoryId][0].attributes[2].value = 'display after saving'
             }
-        }
+            let newFileList = new DataTransfer()
+            document.getElementById('category-image-' + categoryId).files = newFileList.files
+        },
+
+        getImageUrl(category) {
+            if ((category.media.length > 0) && (category.media[0].generated_conversions.categoryThumb !== undefined)) {
+                return category.thumb
+            } else {
+                return '../storage/' + category.image
+            }
+        },
     },
 
     computed: {
@@ -346,12 +357,12 @@ export default {
         ]),
         isHidden() {
             return this.title
-        }
+        },
     },
 
     filters: {
         formatDate: value => moment(String(value)).format('DD.MM.YYYY hh:mm'),
-    }
+    },
 }
 </script>
 

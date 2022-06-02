@@ -105,8 +105,7 @@ class CategoryController extends Controller
      *
      * @param  UpdateCategoryRequest  $request
      * @param  Category  $category
-     * @return
-     * @throws InvalidManipulation
+     * @return bool
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {

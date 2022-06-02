@@ -6,8 +6,6 @@ use App\Interfaces\CategoryRepositoryInterface;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -26,7 +24,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         $categories = Category::all();
         foreach ($categories as $index => $category) {
-            $categories[$index]['thumb'] = $category->getFirstMedia('images')->getUrl('categoryThumb');
+            if (null !== $objImage = $category->getFirstMedia('images')) {
+                $categories[$index]['thumb'] = $objImage->getUrl('categoryThumb');
+            }
         }
         return $categories;
     }
@@ -42,9 +42,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return $category;
     }
 
-    public function update($attributes, $model): bool
+    public function update($attributes, Model $model): bool
     {
         if($attributes->hasFile('image') && $attributes->file('image')->isValid()){
+            $model->clearMediaCollection('images');
             $model->addMediaFromRequest('image')->toMediaCollection('images');
         }
         $model->title = $attributes->title;
@@ -55,7 +56,6 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function delete(Model $model): ?bool
     {
-        $model->clearMediaCollection();
         return $model->delete();
     }
 }
